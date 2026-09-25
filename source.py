@@ -1,10 +1,15 @@
 import cv2
 from ultralytics import YOLO #import for detection
+from pathlib import Path as pt
 
 model = YOLO("yolov8n.pt").to("cuda") #model for image detection
 face_model = YOLO("yolov8m-face.pt").to("cuda")  #model for face detection
 
-photo = cv2.imread('image2.jpg') #read the image2
+BASE_DIR = pt(__file__).parent
+photo = cv2.imread(str(BASE_DIR / "images" / "image5.jpg")) #read the image2
+
+if photo is None : 
+    raise FileNotFoundError ("Image not found")
 
      
 result = model(photo) #detection of the image2 (what's inside)
